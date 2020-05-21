@@ -19,16 +19,20 @@ def url_to_txt(url):
     
     return None
     
-
+# I have created a list of lists
+# alternatively a list of dicts could have been creted 
+# where key = header names and values = a row of values
 def parse_and_extract(url, name='2020'):
     header_names = []
-    rows_list = []
+    table_data = []
+    # table_data_dicts = []
     html_text = url_to_txt(url)
     if html_text == None:
         return False
     r_html = HTML(html=html_text)
     # table_class = "a-section imdb-scroll-table mojo-gutter imdb-scroll-table-styles"
     table_class = '.imdb-scroll-table'
+    # table_class = "#table"
     # now play with the html text
     r_table = r_html.find(table_class)
     if len(r_table) == 0:
@@ -47,15 +51,19 @@ def parse_and_extract(url, name='2020'):
         cols = row.find('td')
         # print(cols)
         row_data = []
+        # row_dict_data = {}
         for col in cols:
             # print(col.text)
+            # header_name = header_names[i]
             row_data.append(col.text)
-        rows_list.append(row_data)
+            # row_dict_data[header_name] = col.text
+        # table_data_dicts.append(row_dict_data)
+        table_data.append(row_data)
 
     # print(header_names)
     # print(rows_list)
 
-    df = pd.DataFrame(data=rows_list, columns=header_names)
+    df = pd.DataFrame(data=table_data, columns=header_names)
 
     path = os.path.join(BASE_DIR, 'data')
     os.makedirs(path, exist_ok=True)
