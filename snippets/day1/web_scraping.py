@@ -5,7 +5,6 @@ import pandas as pd
 import os
 import sys
 
-
 BASE_DIR = os.path.dirname(__file__)
 
 def url_to_txt(url):
@@ -70,7 +69,6 @@ def parse_and_extract(url, name='2020'):
     filepath = os.path.join('data', f'{name}.csv')
     df.to_csv(filepath, index=False)
     return True
-
 
 def run(start_year=None, years_ago=0):
     if start_year == None:
