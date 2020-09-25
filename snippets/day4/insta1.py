@@ -34,7 +34,7 @@ html_text = body_el.get_attribute("innerHTML")
 # print(html_text)
 
 
-# now sometimes we won't get name attribute directly and instead get other things like 
+# now sometimes we won't get name of the attribute directly and instead get other things like 
 # in this case these classes, which don't really make much sense to us. 
 # hence, here we can use xpath
 
@@ -84,6 +84,7 @@ if post_link_el != None:
 
 video_els = browser.find_elements_by_xpath("//video")
 images_els = browser.find_elements_by_xpath("//img")
+
 base_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(base_dir, "data")
 os.makedirs(data_dir, exist_ok=True)
@@ -101,6 +102,7 @@ def scrape_and_save(elements):
         # ensuring that the same content is not saved everytime
         if os.path.exists(filepath):
             continue
+        # another way to check if the retrieved url was a success or not
         with requests.get(url, stream=True) as r:
             try:
                 r.raise_for_status()
@@ -134,7 +136,7 @@ def automate_comment(browser, content="That is cool!"):
     submit_btns_xpath = "button[type='submit']"
     submit_btns_els = browser.find_elements_by_css_selector(submit_btns_xpath)
     time.sleep(2)
-    for btn in submit_btns_els:
+    for btn in submit_btns_els: # clicking all buttons here, maybe can be improved ? 
         try:
             btn.click()
         except:
@@ -159,7 +161,7 @@ def automate_likes(browser):
     for heart_el in biggest_like_hearts_elements:
         h = heart_el.get_attribute("height")
         if h == max_heart_h or h == f"{max_heart_h}":
-            parent_button = heart_el.find_element_by_xpath('..')
+            parent_button = heart_el.find_element_by_xpath('..') # woah, quite advanced !
             time.sleep(2)
             try:
                 parent_button.click()

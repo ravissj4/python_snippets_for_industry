@@ -61,12 +61,13 @@ def parse_and_extract(url, name='2020'):
 
     # print(header_names)
     # print(rows_list)
-
+    # passing lists of lists to the DataFrame class 
     df = pd.DataFrame(data=table_data, columns=header_names)
 
-    path = os.path.join(BASE_DIR, 'data')
-    os.makedirs(path, exist_ok=True)
+    dir_path = os.path.join(BASE_DIR, 'data')
+    os.makedirs(dir_path, exist_ok=True)
     filepath = os.path.join('data', f'{name}.csv')
+    # print(f'filepath = {filepath}')
     df.to_csv(filepath, index=False)
     return True
 
@@ -74,6 +75,7 @@ def run(start_year=None, years_ago=0):
     if start_year == None:
         now = datetime.datetime.now()
         start_year = now.year
+        years_ago = 0
 
     assert isinstance(start_year, int)
     assert isinstance(years_ago, int)

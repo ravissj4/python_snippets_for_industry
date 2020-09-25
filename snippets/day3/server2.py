@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from scrape import run as scrape_runner
-from logger import  
+from logger import trigger_log_save
 app = FastAPI()
 
 # # http://localhost:8000/

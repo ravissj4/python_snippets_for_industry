@@ -81,7 +81,7 @@ if r.status_code in range(200,299):
             movie_ids.add(movie_id)
 
 output = 'movie_search.csv'
-movie_data = []
+movies_data = []
 for movie_id in movie_ids:
     api_version = 3
     base_url = f'https://api.themoviedb.org/{api_version}'
@@ -92,9 +92,16 @@ for movie_id in movie_ids:
     
     if r.status_code in range(200, 299):
         data = r.json()
-        movie_data.append(data)
+        movies_data.append(data)
 
 
-df = pd.DataFrame(movie_data)
+df = pd.DataFrame(movies_data)
 print(df.head())
 df.to_csv(output, index=False)
+
+'''
+    So, what we did ? 
+    1. First of all, searched for all the movie results of a particular movie - The matrix
+    2. Store all the ids of the movies in the result. 
+    3. Extracted data of all those movies 
+'''
